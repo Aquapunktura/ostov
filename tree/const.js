@@ -1,5 +1,5 @@
 'use strict';
-
+;
 let spaceLocal = {
   x:10,
   y:10
