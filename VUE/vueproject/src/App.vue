@@ -8,16 +8,24 @@
       <hr>
     </div>
     <div class="parentgrid">
-        <div class="child1">1</div>
+      <ultra-button data="1"></ultra-button>
+      <ultra-button data="unt in culpa qui officia deserunt mollit anim id est laborum"></ultra-button>
+      <ultra-button data="3"></ultra-button>
+      <ultra-button data="4"></ultra-button>
+        <!-- <div class="child1">1</div>
         <div class="child2">unt in culpa qui officia deserunt mollit anim id est laborum</div>
         <div class="child3">3</div>
-        <div class="child4">4</div>
+        <div class="child4">4</div> -->
     </div>
   </div>
 </template>
 
 <script>
+import UltraButton from './ultraButton.vue'
 export default {
+  components: {
+    'ultra-button': UltraButton
+  },
   data() {
     return{
 
@@ -50,22 +58,7 @@ body {
   gap: 20px;
   margin: 30px;
 }
-.parentgrid>* {
-  // all child
-  display: grid;
-  place-items: center;
-  background-color: #25752589;
-  border-style: solid;
-  border-color: #999;
-  border-radius: 20px;
-  padding: 10px;
-  text-align: center;
-}
-.parentgrid>*:hover {
-  cursor: pointer;
-  background-color: #257525;
-  border-color: #ababab;
-}
+
 
 </style>
 
