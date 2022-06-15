@@ -1,0 +1,89 @@
+body {
+  margin: 0px;
+}
+.ele {
+  border: 1px solid #604d46;
+  border-radius: 10px;
+  padding: 5px;
+  font-family: sans-serif;
+  font-size: x-large;
+  color: #604d46;
+  margin: 5px;
+  display: flow-root;
+}
+.res {
+  border: 0px;
+  margin: 70px;
+  font-size: xxx-large;
+  text-transform: capitalize;
+}
+.gen:hover, .letters div:hover, .add:hover {
+  background: #c0bfdb;
+  cursor: pointer;
+}
+.gen {
+  width: 200px;
+  /*margin: auto;*/
+  border: 0px;
+  user-select: none;
+  border-radius: 10px;
+  vertical-align: middle;
+}
+.add {
+ cursor: pointer;
+  /*margin: auto;*/
+  border: 0px;
+  user-select: none;
+  border-radius: 10px;
+  vertical-align: middle;
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+#newMask {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: #9b869870;
+  text-align: center;
+  border-radius: 15px;
+  font-size: x-large;
+  color: currentColor;
+  text-transform: capitalize;
+  font-weight: bolder;
+}
+
+.trio {
+  text-align: center;
+  width: 60%;
+  background: #8f8eb35c;
+  padding: 20px;
+  float: left;
+}
+.letters {
+  display: flow-root;
+  border: 0px;
+  width: 120px;
+  float: left;
+  margin: 10px 25px;
+}
+.letters div {
+  width: 40px;
+  height: 40px;
+  float: left;
+  border: 1px solid #604d46;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 2px;
+  text-transform: capitalize;
+  user-select: none;
+}
+.duo {
+  background: #b06ea35c;
+  padding: 20px;
+  float: right;
+  width: 30%;
+}
+.selected {
+  background: #a7a6c1;
+}
