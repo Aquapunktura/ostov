@@ -30,7 +30,11 @@ export default {
   methods: {
     call(id) {
       this.nowOpenedComponent = this.allComponents[id];
+      localStorage.setItem('chosenModule',id);
     }
+  },
+  beforeMount() {
+    this.nowOpenedComponent = this.allComponents[localStorage.getItem('chosenModule')];
   }
 }
 </script>
