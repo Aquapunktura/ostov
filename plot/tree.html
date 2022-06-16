@@ -9,16 +9,18 @@
   height: 500px; /* Высота поля в пикселах */
   resize: none; /* Запрещаем изменять размер */
  }
- td {
-   border-style: solid;
-   border-width: 0;
-   border-bottom: 1px;
+ td, tr {
+   border: 2px solid grey;
  }
+ table {
+   border-collapse: collapse;
+ }
+
 </style>
   </head>
   <body>
 
-    <table border width="800" height="600">
+    <table cellspacing="0" width="800" height="600">
       <tr><td align="center">все герои</td><td align="center">новый герой</td></tr> <!--ряд с ячейками заголовков-->
       <tr><td align="center">все главы</td><td align="center">новая глава</td></tr>
       <tr><td align="center">текст</td><td align="center">текущая глава</td></tr>

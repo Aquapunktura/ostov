@@ -1,0 +1,21 @@
+{
+  "texts": [
+    {
+      "content": "kakojtotext egotelo",
+      "tags": ["pers", "fam", "land"],
+      "id": "101",
+      "summary": "ja vybiraju tebja"
+    }
+  ],
+  "chapters": [
+    {
+      "name": "nazvanie",
+      "steps": [
+        {
+          "type": "event",
+          "textId": "101",
+        }
+      ]
+    }
+  ]
+}
