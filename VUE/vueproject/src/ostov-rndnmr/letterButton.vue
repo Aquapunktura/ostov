@@ -15,6 +15,6 @@ export default {
 
 <style lang="css" scoped>
 .selected {
-  background: #a7a6c1;
+  background: #3B3A53;
 }
 </style>

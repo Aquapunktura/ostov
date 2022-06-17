@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div class="trioPlusDuo">
     <div class="trio">
       <div class="ele res">
         {{word}}
@@ -15,7 +15,8 @@
         </table>
       </div>
 
-      <div class="ele" style="width: 680px; margin: 10px auto">
+      <div class="ele" >
+        <!-- style="width: 680px; margin: 10px auto" -->
         <div v-for="(group, id) in data" class="letters" :key="id">
           <letter-button v-for="letter in group.all" :key="letter.l" :letter="letter" @update="change(letter)" />
         </div>
@@ -208,24 +209,31 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.trioPlusDuo {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: auto 0.3fr;
+}
 .ele {
-  border: 1px solid #604d46;
+  width: 45%;
+  margin: 10px auto;
+  border: 1px solid #B4ADA3;
   border-radius: 10px;
   padding: 5px;
   font-family: sans-serif;
   font-size: x-large;
-  color: #604d46;
-  margin: 5px;
+  color: #B4ADA3;
   display: flow-root;
 }
 .res {
+  width: auto;
   border: 0px;
   margin: 70px;
   font-size: xxx-large;
   text-transform: capitalize;
 }
 .gen:hover, .letters div:hover, .add:hover {
-  background: #c0bfdb;
+  background: #000;
   cursor: pointer;
 }
 .gen {
@@ -262,8 +270,7 @@ export default {
 
 .trio {
   text-align: center;
-  width: 60%;
-  background: #8f8eb35c;
+  background: #272834;
   padding: 20px;
   float: left;
 }
@@ -272,13 +279,13 @@ export default {
   border: 0px;
   width: 120px;
   float: left;
-  margin: 10px 25px;
+  margin: 0 auto;
 }
 .letters div {
   width: 40px;
   height: 40px;
   float: left;
-  border: 1px solid #604d46;
+  border: 1px solid #71695D;
   border-radius: 10px;
   padding: 5px;
   margin: 2px;
@@ -286,10 +293,10 @@ export default {
   user-select: none;
 }
 .duo {
-  background: #b06ea35c;
+  background: #3A2838;
   padding: 20px;
   float: right;
-  width: 30%;
+  /* width: 30%; */
 }
 
 
