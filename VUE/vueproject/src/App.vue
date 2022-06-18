@@ -1,10 +1,11 @@
 <template lang="html">
   <div class="">
     <div v-if="nowOpenedComponent === undefined" class="wrapper">
-        <button @click="call(4)">plot</button>
-        <button @click="call(1)">ui</button>
+        <button @click="call(1)">plot</button>
+        <button @click="call(2)">ui</button>
         <button @click="call(3)">tree</button>
-        <button @click="call(2)">rndnmr</button>
+        <button @click="call(4)">rndnmr</button>
+        <button @click="call(5)">test</button>
     </div>
     <template v-else>
       <div :is="nowOpenedComponent" />
@@ -19,11 +20,12 @@ import OstovUi from './ostov-ui/ui-main.vue'
 import OstovRnd from './ostov-rndnmr/rndnmr-main.vue'
 import OstovTree from './ostov-tree/tree-main.vue'
 import OstovPlot from './ostov-plot/plot-main.vue'
+import OstovTest from './ostov-test/test.vue'
 
 export default {
   data() {
     return {
-      allComponents: [undefined,OstovUi,OstovRnd,OstovTree,OstovPlot],
+      allComponents: [undefined,OstovPlot,OstovUi,OstovTree,OstovRnd,OstovTest],
       nowOpenedComponent: undefined
     }
   },
