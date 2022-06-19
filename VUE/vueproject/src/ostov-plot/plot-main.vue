@@ -4,14 +4,13 @@
       <tr><td align="center">все герои</td><td align="center">новый герой</td></tr> <!--ряд с ячейками заголовков-->
       <tr><td align="center">все главы</td><td align="center">новая глава</td></tr>
       <tr><td align="center">текст</td><td align="center">текущая глава</td></tr>
-      <tr><td align="center"><textarea></textarea></td>
+      <tr><td align="center">
+        <textarea v-if="openedText" :value="openedText.content" />
+        <textarea v-else />
+      </td>
           <td align="center">
-            <canvas
-            id='canvas'
-            width = "420"
-            height = "420"
-          ></canvas>
-        </td>
+            <tree-generator :data="data" :chapterArrId="chapterArrId" @changeText="changeText" />
+          </td>
       </tr> <!--ряд с ячейками тела таблицы-->
 
     </table>
@@ -19,7 +18,28 @@
 </template>
 
 <script>
+import Tree from './tree-generator/tree.vue'
+import DataJSON from './data/data.json'
+
 export default {
+  components: {
+    'tree-generator': Tree
+  },
+  data() {
+    return {
+      data: DataJSON,
+      chapterArrId: 0,
+      openedText: undefined
+    }
+  },
+  methods: {
+    findTextById(id) {
+      return this.data.texts.find((item)=>item.id===id);
+    },
+    changeText(idText) {
+      this.openedText = this.findTextById(idText);
+    }
+  }
 }
 </script>
 
