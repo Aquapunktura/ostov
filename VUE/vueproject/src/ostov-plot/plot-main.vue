@@ -1,57 +1,122 @@
 <template lang="html">
-  <div class="">
-    <table border width="800" height="600">
-      <tr><td align="center">все герои</td><td align="center">новый герой</td></tr> <!--ряд с ячейками заголовков-->
-      <tr><td align="center">все главы</td><td align="center">новая глава</td></tr>
-      <tr><td align="center">текст</td><td align="center">текущая глава</td></tr>
-      <tr><td align="center">
-        <textarea v-if="openedText" :value="openedText.content" />
-        <textarea v-else />
-      </td>
-          <td align="center">
-            <tree-generator :data="data" :chapterArrId="chapterArrId" @changeText="changeText" />
-          </td>
-      </tr> <!--ряд с ячейками тела таблицы-->
+  <article>
+    <section>
+      <select-options
+        :options="data.texts"
+        outputKey="summary"
+        label="Тексты"
+        :default="openedTextArrId"
+        @delete="deleteText()"
+        @add="addNewText()"
+        @set="selectTextByArrId"
+      />
+      <text-ui
+        :text="openedText"
+       />
+    </section>
+    <section>
+      <select-options
+        :options="data.chapters"
+        outputKey="name"
+        label="Главы"
+        :default="chapterArrId"
+        @delete="deleteChapter()"
+        @add="addNewChapter()"
+        @set="setChapter"
+      />
+      <tree-generator
+        :data="data"
+        :chapterArrId="chapterArrId"
+        @changeText="setTextById"
+        @newName="setNewStepName"
+        @newStep="addNewStep"
+        @deleteStep="deleteStep"
 
-    </table>
-  </div>
+      />
+    </section>
+  </article>
 </template>
 
 <script>
 import Tree from './tree-generator/tree.vue'
 import DataJSON from './data/data.json'
-
+import SelectOptions from './components/select-options.vue'
+import TextUi from './text-ui/text-ui.vue'
 export default {
   components: {
-    'tree-generator': Tree
+    'tree-generator': Tree,
+    'text-ui': TextUi,
+    'select-options': SelectOptions,
   },
   data() {
     return {
       data: DataJSON,
       chapterArrId: 0,
-      openedText: undefined
+      openedTextArrId: null
+    }
+  },
+  computed: {
+    openedText: function() {
+      return this.data.texts[this.openedTextArrId];
     }
   },
   methods: {
-    findTextById(id) {
-      return this.data.texts.find((item)=>item.id===id);
+    findTextIndexById(id) {
+      return this.data.texts.findIndex((item)=>item.id===id);
     },
-    changeText(idText) {
-      this.openedText = this.findTextById(idText);
+
+    setTextById(idText) {
+      this.openedTextArrId = this.findTextIndexById(idText);
+    },
+    selectTextByArrId(arrId) {
+      this.openedTextArrId = arrId;
+    },
+    addNewChapter() {
+      this.data.chapters.push({
+        "name": "*",
+        "steps": []
+      })
+      this.chapterArrId = this.data.chapters.length-1;
+    },
+    deleteChapter() {
+      this.data.chapters.splice(this.chapterArrId, 1);
+    },
+    setChapter(arrId) {
+      this.chapterArrId = arrId;
+    },
+
+
+    setNewStepName(o) {
+      this.data.chapters[o.arrId].name = o.newName;
+    },
+    addNewStep(o) {
+      this.data.chapters[o.arrId].steps.push({
+        type: "normal",
+        textId: "0"
+      })
+    },
+    deleteStep(o) {
+      this.data.chapters[o.arrId].steps.splice(o.stepId, 1);
     }
   }
 }
 </script>
 
 <style lang="css" scoped>
-textarea {
- width: 400px; /* Ширина поля в процентах */
- height: 500px; /* Высота поля в пикселах */
- resize: none; /* Запрещаем изменять размер */
+article {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
 }
-td {
-  border-style: solid;
-  border-width: 0;
-  border-bottom: 1px;
+article>* {
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+  display: grid;
+  justify-self: center;
+  grid-template-rows: 100px 1fr;
+}
+article>*:first-child {
+  border-right: 5px dotted #d9d9d9;;
 }
 </style>

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="">
+  <div @keydown.esc="call(0)" tabindex="0" ref="main">
     <div v-if="nowOpenedComponent === undefined" class="wrapper">
         <button @click="call(1)">plot</button>
         <button @click="call(2)">ui</button>
@@ -37,7 +37,11 @@ export default {
   },
   beforeMount() {
     this.nowOpenedComponent = this.allComponents[localStorage.getItem('chosenModule')];
+  },
+  updated() {
+    this.$refs.main.focus();
   }
+
 }
 </script>
 
