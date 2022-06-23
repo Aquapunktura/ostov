@@ -1,7 +1,7 @@
 <template lang="html">
   <ul>
     <template v-if="buttons && buttons.length > 0">
-      <li v-for="(button, id) in buttons" :key='id' @click="change(button)" :style="button.color?'background:'+button.color:''"  :class="emited==button.emit?'selected':''">
+      <li v-for="(button, id) in buttons" :key='id' @click="change(button)" :style="button.color?'background:'+button.color:''"  :class="addClass(button)">
         <span>{{button.name}}</span>
       </li>
     </template>
@@ -16,6 +16,7 @@ export default {
   name: 'selectable-menu',
   props: {
     buttons: Array,
+    standard: String
   },
   data() {
     return {
@@ -24,10 +25,24 @@ export default {
   },
   methods: {
     change(button) {
-      if (!button.justEmit) {
-        this.emited = button.emit;
+      if (!button.disabled) {
+        if (!button.justEmit) {
+          this.emited = button.emit;
+        }
+        this.$emit('set', button.emit);
       }
-      this.$emit('set', button.emit);
+
+    },
+    addClass(button) {
+      let res = this.emited==button.emit?'selected ':' ';
+      res += button.disabled?'disabled':''
+      return res;
+    }
+  },
+  beforeMount() {
+    if (this.standard) {
+      this.emited = this.standard;
+      this.$emit('set', this.emited);
     }
   }
 }
@@ -45,7 +60,7 @@ li {
   cursor: pointer;
   background-color: #22646a;
   user-select: none;
-  border: 1px solid #fff0;
+  border: 2px solid #fff0;
 }
 span {
   padding: 10px;
@@ -55,17 +70,17 @@ span:hover {
   background-color: #4040408c;
 }
 li:hover {
-  border: 1px solid white;
+  border: 2px solid white;
 }
-li:first-child {
+li:first-child,li:first-child>* {
   border-bottom-left-radius: 10px;
 }
-li:last-child {
+li:last-child, li:last-child>* {
   border-bottom-right-radius: 10px;
 }
 
 .selected {
-  border: 1px solid black;
+  border: 2px solid black !important;
 }
 .selected>* {
   color: white;
@@ -73,5 +88,6 @@ li:last-child {
 }
 .disabled {
   cursor: not-allowed;
+  background-color: #7b7676 !important;
 }
 </style>

@@ -11,7 +11,9 @@
         @set="selectTextByArrId"
       />
       <text-ui
+        v-if="openedText"
         :text="openedText"
+        @save="saveText"
        />
     </section>
     <section>
@@ -31,7 +33,8 @@
         @newName="setNewStepName"
         @newStep="addNewStep"
         @deleteStep="deleteStep"
-
+        @bindStep="bindStep"
+        @stepIsEdited="storeSave()"
       />
     </section>
   </article>
@@ -61,6 +64,20 @@ export default {
     }
   },
   methods: {
+    storeSave() {
+      localStorage.setItem('plotData', JSON.stringify(this.data));
+      localStorage.setItem('plotChapterArrId', this.chapterArrId);
+      localStorage.setItem('plotOpenedTextArrId', this.openedTextArrId);
+    },
+    storeLoad() {
+      if (localStorage.getItem('plotData')) {
+        this.data = JSON.parse(localStorage.getItem('plotData'));
+        this.chapterArrId = +localStorage.getItem('plotChapterArrId');
+        this.openedTextArrId = +localStorage.getItem('plotOpenedTextArrId');
+      }
+
+    },
+
     findTextIndexById(id) {
       return this.data.texts.findIndex((item)=>item.id===id);
     },
@@ -70,35 +87,82 @@ export default {
     },
     selectTextByArrId(arrId) {
       this.openedTextArrId = arrId;
+      this.storeSave();
     },
+    saveText(newText) {
+      let {summary, id, content} = newText;
+      this.openedText.summary = summary;
+      this.openedText.id = id;
+      this.openedText.content = content;
+      this.storeSave();
+    },
+    addNewText() {
+      this.data.texts.push({
+        id: 'text'+Math.random(),
+        tags: [],
+        content: '',
+        summary: ''
+      })
+      this.openedTextArrId = this.data.texts.length-1;
+      this.storeSave();
+    },
+    deleteText() {
+      this.data.texts.splice(this.openedTextArrId, 1);
+      this.openedTextArrId = this.data.texts.length-1;
+      this.storeSave();
+    },
+
+
     addNewChapter() {
       this.data.chapters.push({
         "name": "*",
         "steps": []
       })
       this.chapterArrId = this.data.chapters.length-1;
+      this.storeSave();
     },
     deleteChapter() {
       this.data.chapters.splice(this.chapterArrId, 1);
+      this.storeSave();
     },
     setChapter(arrId) {
       this.chapterArrId = arrId;
+      this.storeSave();
     },
 
 
     setNewStepName(o) {
       this.data.chapters[o.arrId].name = o.newName;
+      this.storeSave();
     },
     addNewStep(o) {
       this.data.chapters[o.arrId].steps.push({
         type: "normal",
         textId: "0"
       })
+      this.storeSave();
     },
     deleteStep(o) {
       this.data.chapters[o.arrId].steps.splice(o.stepId, 1);
+      this.storeSave();
+    },
+    bindStep(o) {
+      if (this.openedText) {
+        this.data.chapters[o.arrId].steps[o.stepId].textId = this.openedText.id;
+      }
+      else {
+        alert('Не выбран текст для привязки')
+      }
+      this.storeSave();
     }
-  }
+  },
+  updated() {
+    this.storeSave();
+  },
+  created() {
+    this.storeLoad();
+  },
+
 }
 </script>
 

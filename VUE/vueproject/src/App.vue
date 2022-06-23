@@ -33,13 +33,19 @@ export default {
     call(id) {
       this.nowOpenedComponent = this.allComponents[id];
       localStorage.setItem('chosenModule',id);
+    },
+    focus() {
+      this.$refs.main.focus();
     }
   },
   beforeMount() {
     this.nowOpenedComponent = this.allComponents[localStorage.getItem('chosenModule')];
   },
+  mounted() {
+    this.focus();
+  },
   updated() {
-    this.$refs.main.focus();
+    this.focus();
   }
 
 }
@@ -51,9 +57,10 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
-body {
-  background-color: grey;
-  width: 100%;
+html {
+  background: rgb(213,224,224);
+  background: linear-gradient(331deg, rgba(213,224,224,1) 0%, rgba(124,124,124,1) 100%);
+  min-height: 100vh;
 }
 
 
