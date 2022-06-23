@@ -16,24 +16,64 @@
         </div>
       </div>
       <div class="alphabetButtons">
-        <div class="groupA">
-          a
-        </div>
-        <div class="groupB">
-          b
-        </div>
-        <div class="groupC">
-          c
-        </div>
-        <div class="groupD">
-          d
-        </div>
-        <div class="groupE">
-          e
-        </div>
-        <div class="groupF">
-          f
-        </div>
+        <table>
+          <tr>
+            <td>а</td>
+            <td>я</td>
+            <td class="td0"></td>
+            <td>б</td>
+            <td>п</td>
+            <td class="td0"></td>
+            <td>в</td>
+            <td>ф</td>
+            <td class="td0"></td>
+            <td>й</td>
+            <td>х</td>
+          </tr>
+          <tr>
+            <td>о</td>
+            <td>ё</td>
+            <td class="td0"></td>
+            <td>д</td>
+            <td>т</td>
+            <td class="td0"></td>
+            <td>ж</td>
+            <td>ш</td>
+            <td class="td0"></td>
+            <td>ц</td>
+            <td>ч</td>
+          </tr>
+          <tr>
+            <td>у</td>
+            <td>ю</td>
+            <td class="td0"></td>
+            <td>г</td>
+            <td>к</td>
+            <td class="td0"></td>
+            <td>з</td>
+            <td>с</td>
+            <td class="td0"></td>
+            <td>щ</td>
+            <td class="td0"></td>
+          </tr>
+          <tr>
+            <td>ы</td>
+            <td>и</td>
+          </tr>
+          <tr>
+            <td>э</td>
+            <td>е</td>
+            <td class="td0"></td>
+            <td>л</td>
+            <td>м</td>
+            <td class="td0"></td>
+            <td>н</td>
+            <td>р</td>
+            <td class="td0"></td>
+            <td>ъ</td>
+            <td>ь</td>
+          </tr>
+        </table>
       </div>
     </div>
     <div class="menu">
@@ -90,41 +130,38 @@ export default {
   gap: 50px;
 }
 .alphabetButtons {
-  display: grid;
-  place-items: center;
-  grid-template-areas:
-  "A B C D"
-  "A B C D"
-  "A B C D"
-  "A E E F"
-  "A E E F";
-  width: 100%;
-  height: 100%;
+
 }
-.alphabetButtons>* {
-  border: 1px solid #fff;
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
+table {
+  border: 1px solid #B4ADA3;
+  border-radius: 7px;
+  text-align: center;
+  border-collapse: separate;
+  border-spacing: 7px;
+  user-select: none;
 }
-.groupA {
-  grid-area: A;
+table>* {
+  color: #B4ADA3;
+  font-size: x-large;
 }
-.groupB {
-  grid-area: B;
+td {
+  border: 1px solid #B4ADA3;
+  border-radius: 7px;
+  width: 40px;
+  height: 40px;
+  text-transform: capitalize;
 }
-.groupC {
-  grid-area: C;
+td:hover {
+  background-color: #3B3A53;
+  cursor: pointer;
 }
-.groupD {
-  grid-area: D;
+.td0 {
+  width: 15px;
+  opacity: 0;
 }
-.groupE {
-  grid-area: E;
-}
-.groupF {
-  grid-area: F;
+.td0:hover {
+  background-color: inherit;
+  cursor: auto;
 }
 .menu {
   display: grid;
