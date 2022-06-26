@@ -77,29 +77,52 @@
       </div>
     </div>
     <div class="menu">
-      <div class="maskButtons">
+      <div
+        :class="{openedMenu: isMenuOpened}"
+        class="closedMenu"
+        @click="isMenuOpened = !isMenuOpened"
+      >
 
       </div>
-      <div class="maskList">
+      <template v-if="isMenuOpened">
+        <div class="maskButtons">
+          Close Menu
+        </div>
+        <!-- <div class="maskList">
+          <center>Add new mask:</center>
+          <input type="text" name="" value="">
+        </div> -->
+        <div class="nameHistory">
+          <center>Name History:</center>
+          <div>Randome Name 1</div>
+          <div>SecondRN</div>
+          <div>Amber Third</div>
+          <div>Four Elements</div>
+          <div>MambaNamba5</div>
+        </div>
+      </template>
+      <template v-else>
 
-      </div>
-      <div class="nameHistory">
-
-      </div>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ostov-test'
+  name: 'ostov-test',
+  data(){
+    return {
+      isMenuOpened: false
+    }
+  }
 }
 </script>
 
 <style lang="css" scoped>
 .container {
   display: grid;
-  grid-template-columns: auto 0.3fr;
+  grid-template-columns: 1fr auto;
   width: 100%;
   min-height: 100vh;
 }
@@ -118,7 +141,8 @@ export default {
   border-radius: 7px;
   font-size: xx-large;
   color: #B4ADA3;
-  padding: 10px 20px;
+  padding-top: 70px;
+  padding-bottom: 10px;
 }
 .choiceButtons {
   border-radius: 7px;
@@ -168,13 +192,54 @@ td:hover {
   place-items: center;
   background-color: #3A2838;
 }
+.closedMenu{
+  border: 1px solid #B4ADA3;
+  border-radius: 10px;
+  width: 30px;
+  height: 30px;
+  place-self: start;
+}
+.openedMenu {
+  border: 1px solid #B4ADA3;
+  border-radius: 10px;
+  width: 100%;
+  height: 30px;
+  place-self: start;
+  background-color: green;
+  display: grid;
+  place-items: center;
+
+}
+.openedMenu:before {
+  content: "Close Menu";
+}
 .maskButtons{
-  border: 1px solid white;
+  border: 1px solid #B4ADA3;
+  border-radius: 10px;
+  width: 60px;
+  height: 30px;
 }
 .maskList{
-  border: 1px solid white;
+  border: 1px solid #B4ADA3;
+  border-radius: 10px;
+  padding: 10px;
+}
+.maskList>* {
+  color: #B4ADA3;
+}
+.maskList>input {
+  margin-top: 10px;
 }
 .nameHistory{
-  border: 1px solid white;
+  border: 1px solid #B4ADA3;
+  border-radius: 10px;
+  padding: 10px;
+}
+.nameHistory>* {
+  color: #B4ADA3;
+}
+.nameHistory>center {
+  border-bottom: 1px solid #B4ADA3;
+  margin-bottom: 15px;
 }
 </style>
