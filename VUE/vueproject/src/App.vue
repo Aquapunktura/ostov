@@ -1,17 +1,20 @@
 <template lang="html">
-  <div @keydown.esc="call(0)" tabindex="0" ref="main">
-    <div v-if="nowOpenedComponent === undefined" class="wrapper">
-        <button @click="call(1)">plot</button>
-        <button @click="call(2)">ui</button>
-        <button @click="call(3)">tree</button>
-        <button @click="call(4)">rndnmr</button>
-        <button @click="call(5)">test</button>
-    </div>
-    <template v-else>
-      <div :is="nowOpenedComponent" />
-      <div class="back" @click="call(0)">НАЗАД</div>
-    </template>
-
+  <div @keydown.esc="call(-1)" tabindex="0" ref="main">
+    <transition name="component-fade" mode="out-in">
+      <div v-if="componentId < 0" class="wrapper">
+        <button
+          v-for="(item, id) in allComponents"
+          :key="item.name"
+          @click="call(id)"
+        >
+          {{ item.name }}
+        </button>
+      </div>
+      <div v-else>
+        <component :is="nowOpenedComponent" />
+        <div class="back" @click="call(-1)">НАЗАД</div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -25,25 +28,49 @@ import OstovTest from './ostov-test/test.vue'
 export default {
   data() {
     return {
-      allComponents: [undefined,OstovPlot,OstovUi,OstovTree,OstovRnd,OstovTest],
-      nowOpenedComponent: undefined
+      allComponents: [
+        {name: 'plot', source: OstovPlot},
+        {name: 'ui', source: OstovUi},
+        {name: 'tree', source: OstovTree},
+        {name: 'rndnmr', source: OstovRnd},
+        {name: 'test', source: OstovTest}
+      ],
+      componentId: 0
     }
   },
+
+  computed: {
+    nowOpenedComponent() {
+      return this.allComponents[this.componentId]?.source;
+    }
+  },
+
+  watch: {
+    componentId() {
+      localStorage.setItem('chosenModule',this.componentId);
+    }
+  },
+
   methods: {
     call(id) {
-      this.nowOpenedComponent = this.allComponents[id];
-      localStorage.setItem('chosenModule',id);
+      this.componentId = id;
     },
     focus() {
       this.$refs.main.focus();
     }
   },
-  beforeMount() {
-    this.nowOpenedComponent = this.allComponents[localStorage.getItem('chosenModule')];
+
+  created() {
+    const LocalStorageId = localStorage.getItem('chosenModule');
+    if (LocalStorageId !== undefined) {
+      this.componentId = LocalStorageId;
+    }
   },
+
   mounted() {
     this.focus();
   },
+
   updated() {
     this.focus();
   }
@@ -93,5 +120,13 @@ html {
   cursor: pointer;
   border-color: black;
   box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.4) inset;
+}
+
+.component-fade-enter-active, .component-fade-leave-active {
+  transition: opacity .3s ease;
+}
+.component-fade-enter, .component-fade-leave-to
+/* .component-fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
 }
 </style>
