@@ -234,10 +234,11 @@ td:hover {
   display: grid;
   border: 1px solid #B4ADA3;
   border-radius: 10px;
-  width: 30px;
-  height: 30px;
+  width: auto;
+  height: auto;
   place-self: start;
   cursor: pointer;
+  padding: 7px;
 }
 .closedMenu:hover {
   background-color: #2B2633;
