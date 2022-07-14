@@ -234,10 +234,11 @@ td:hover {
   display: grid;
   border: 1px solid #B4ADA3;
   border-radius: 10px;
-  width: 30px;
-  height: 30px;
+  width: auto;
+  height: auto;
   place-self: start;
   cursor: pointer;
+  padding: 7px;
 }
 .closedMenu:hover {
   background-color: #2B2633;
@@ -280,6 +281,22 @@ td:hover {
   color: #B4ADA3;
   padding: 5px;
 }
+.nameLength {
+  display: grid;
+  place-items: center;
+  border: 1px solid #B4ADA3;
+  border-radius: 10px;
+  padding: 10px;
+  /* width: 60px;
+  height: 30px; */
+}
+.settingsMenu {
+  display: grid;
+  place-items: center;
+  color: #B4ADA3;
+  padding: 5px;
+}
+
 .nameLength {
   display: grid;
   place-items: center;

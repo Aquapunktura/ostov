@@ -18,7 +18,12 @@
       <div class="ele" >
         <!-- style="width: 680px; margin: 10px auto" -->
         <div v-for="(group, id) in data" class="letters" :key="id">
-          <letter-button v-for="letter in group.all" :key="letter.l" :letter="letter" @update="change(letter)" />
+          <letter-button
+            v-for="letter in group.all"
+            :key="letter.l"
+            :letter="letter"
+            @update="pushedLetter(letter)"
+          />
         </div>
       </div>
 
@@ -72,138 +77,148 @@ import MaskList from './maskList.vue'
 export default {
   data() {
     return {
-      data: undefined,
-      masks: undefined,
+      data: null,
+      masks: null,
       word: '',
-      wordHistory: undefined,
+      wordHistory: null,
       newMaskName: '',
       showMenu: true
     }
   },
+
   components: {
     LetterButton,
     MaskList
   },
+
+  watch: {
+    // при изменении параметров, сохраняем их в локалсторэдж
+    'data': {
+      handler: function() {localStorage.setItem('saveButtons', JSON.stringify(this.data));},
+      deep: true
+    },
+    masks() {
+      localStorage.setItem('saveMasks', JSON.stringify(this.masks));
+    },
+    wordHistory() {
+      localStorage.setItem('saveHistory', JSON.stringify(this.wordHistory));
+    }
+  },
+
   methods: {
     choceAll(a) {
-      //выделить или снять выделение с букв
-      // true - выделить; false - снять выделение
-      this.data.forEach((item) =>item.all.forEach((item)=>item.isSelected = a));
+      if (typeof a === 'boolean') {
+        // перебираем все буквы и меняем их выбор на true или false
+        this.data.forEach(item =>item.all.forEach((item)=>item.isSelected = a));
+      }
+      else console.log('choceAll(a) принимает на вход true или false. Передано:', a);
     },
-    change(letter) {
+    pushedLetter(letter) {
+      // просто меняем значение на противоположное
       letter.isSelected = !letter.isSelected;
-      this.saveButtons();
     },
     addMask() {
+      // если маска не введена
       if (!this.newMaskName.length) return;
+      // переводим слово в нижний регистр
       this.newMaskName = this.newMaskName.toLowerCase();
-
-      let goalMask = {
+      // переменная для итоговой маски
+      const GoalMask = {
         orig: this.newMaskName,
         data: []
       }
-      for(let a=0;a<this.newMaskName.length;a++) {
-        let nameLetter = this.newMaskName[a];
-        let isSet = false;
-        this.data.forEach((group, groupNubmer) => {
-          if(!isSet && group.all.find(letterObj => letterObj.l == nameLetter)) {
-            goalMask.data.push(groupNubmer);
-            isSet = true;
+      //перебераем символы слова
+      for(let a=0; a<this.newMaskName.length; a++) {
+        // переменная для одной буквы
+        const OneLetter = this.newMaskName[a];
+        // перебираем все группы букв
+        const Finder = this.data.find((group, groupNubmer) => {
+          // ищем в группе (group) букву (OneLetter)
+          if(group.all.find(letterObj => letterObj.l == OneLetter)) {
+            GoalMask.data.push(groupNubmer);
+            return true;
           }
         });
-        if (!isSet) goalMask.data.push(-1);
+        // если буква не нашлась ни в одной группе прекращаем добавление
+        if (!Finder) return alert(`Неподдерживаемый символ "${OneLetter}"`);
       }
-      this.masks.push(goalMask);
-      this.saveMasks();
-
-    },
-
-    saveAll() {
-      this.saveMasks();
-      this.saveHistory();
-      this.saveButtons();
-    },
-    saveMasks() {localStorage.setItem('saveMasks', JSON.stringify(this.masks));},
-    saveHistory() {localStorage.setItem('saveHistory', JSON.stringify(this.wordHistory));},
-    saveButtons() {localStorage.setItem('saveButtons', JSON.stringify(this.data));},
-    loadAll() {
-      if (localStorage.getItem('saveButtons')) {
-        this.data = JSON.parse(localStorage.getItem('saveButtons'));
-      }
-      else {
-        let letters = []
-        Letters.groups.forEach((item) => {
-          let a = {
-            name: item.name,
-            all: []
-          }
-          item.all.forEach((l) => {
-            a.all.push({
-              l,
-              isSelected: true
-            });
-          });
-          letters.push(a);
-        });
-        this.data = letters;
-      }
-
-      if (localStorage.getItem('saveHistory')) {
-        this.wordHistory = JSON.parse(localStorage.getItem('saveHistory'));
-      }
-      else this.wordHistory = [];
-
-      if (localStorage.getItem('saveMasks')) {
-        this.masks = JSON.parse(localStorage.getItem('saveMasks'));
-      }
-      else this.masks = Masks;
-
-      this.word = this.wordHistory.length?this.wordHistory[0]:' ';
-    },
-    loadDefault() {
-      this.masks = Masks;
-
-
+      // добавляем итоговую маску
+      this.masks.push(GoalMask);
     },
     generate() {
       //выбрать маску
+      // если нет масок
       if (!this.masks.length) {
-          this.word='нет масок!';
+          alert('нет масок!');
           return;
       }
-      let setMaskArr = this.masks[this.$getRandomInt(this.masks.length-1)].data;
+      // выбираем случайную маску из списка
+      const ChosenMaskArr = this.masks[this.$getRandomInt(this.masks.length-1)].data;
+      // переменная для итогового слова
       let word = '';
-      setMaskArr.forEach((groupArrId) => {
+      // перебираем массив маски
+      ChosenMaskArr.forEach((groupArrId) => { // groupArrId -> айди номер группы букв из маски
+        // если существует такая группа
         if (this.data[groupArrId]) {
-          let letterGroup = this.data[groupArrId].all;
-          let letters = []
-          letterGroup.forEach((letterObj) => {
-            if (letterObj.isSelected) letters.push(letterObj.l);
+          // получаем массив всех букв из нужной группы
+          const LetterGroup = this.data[groupArrId].all;
+          // переменная для хранения всех выбраных букв
+          const Letters = []
+          LetterGroup.forEach((letterObj) => {
+            // перебираем группу букв и добавляем все буквы в массив
+            if (letterObj.isSelected) Letters.push(letterObj.l);
           });
-
-          if (letters.length) {
-            word+=letters[this.$getRandomInt(letters.length-1)];
+          // если есть выбранные буквы в нужной группе
+          if (Letters.length) {
+            // добавляем случайную в итоговое слово
+            word+=Letters[this.$getRandomInt(Letters.length-1)];
           }
           else word+='#'; //если нет выбранных букв
-
-
-
         }
         else word+='*'; //если нет такой группы
 
-      });
+      }); // конец перебора маски
       this.word = word;
       this.wordHistory.unshift(word);
-      this.saveHistory();
     }
   },
+
   beforeMount() {
-    this.loadAll();
+    if (localStorage.getItem('saveButtons')) {
+      this.data = JSON.parse(localStorage.getItem('saveButtons'));
+    }
+    else {
+      let letters = []
+      Letters.groups.forEach((item) => {
+        let a = {
+          name: item.name,
+          all: []
+        }
+        item.all.forEach((l) => {
+          a.all.push({
+            l,
+            isSelected: true
+          });
+        });
+        letters.push(a);
+      });
+      this.data = letters;
+    }
+
+    if (localStorage.getItem('saveHistory')) {
+      this.wordHistory = JSON.parse(localStorage.getItem('saveHistory'));
+    }
+    else this.wordHistory = [];
+
+    if (localStorage.getItem('saveMasks')) {
+      this.masks = JSON.parse(localStorage.getItem('saveMasks'));
+    }
+    else this.masks = Masks;
+
+    this.word = this.wordHistory.length?this.wordHistory[0]:'';
 
   },
-  mounted() {
 
-  }
 
 }
 </script>
