@@ -86,50 +86,47 @@
       <template v-if="isMenuOpened">
         <div class="maskButtons">
           <div class="settingsMenu">
-            Настройки
-            <div class="nameLength">
-              Выберите длину
-              <br>
-              <select class="" name="">
-                <option value="">Short (1-4)</option>
-                <option value="">Medium (5-7)</option>
-                <option value="">Long (8+)</option>
-              </select>
-              <br>
-              или введите
-              <br>
-              точное количество букв
-              <br>
-              <input type="text" name="" value="">
+            <div>
+              <center><font size="6">Ambience List</font></center>
+              <input type="text" size="40" class="ambSearch" placeholder="Type to search...">
             </div>
-            <div class="nameAtmosphere">
-              Выберите
-              <br>
-              готовое окружение
-              <br>
-              <select class="" name="">
-                <option value="">Пустыня</option>
-                <option value="">Лес</option>
-                <option value="">Океан</option>
-              </select>
-              <br>
-              или создайте своё
-              <br>
-              <input type="text" name="" value="">
-            </div>
-            <div class="userMask">
-              Добавьте свой
-              <br>
-              шаблон имени
-              <br>
-              <input type="text" name="" value="">
+            <div class="ambAbcRu">
+              <div>А</div>
+              <div>Б</div>
+              <div>В</div>
+              <div>Г</div>
+              <div>Д</div>
+              <div>Е</div>
+              <div>Ё</div>
+              <div>Ж</div>
+              <div>З</div>
+              <div>И</div>
+              <div>Й</div>
+              <div>К</div>
+              <div>Л</div>
+              <div>М</div>
+              <div>Н</div>
+              <div>О</div>
+              <div>П</div>
+              <div>Р</div>
+              <div>С</div>
+              <div>Т</div>
+              <div>У</div>
+              <div>Ф</div>
+              <div>Х</div>
+              <div>Ц</div>
+              <div>Ч</div>
+              <div>Ш</div>
+              <div>Щ</div>
+              <div>Ъ</div>
+              <div>Ы</div>
+              <div>Ь</div>
+              <div>Э</div>
+              <div>Ю</div>
+              <div>Я</div>
             </div>
           </div>
         </div>
-        <!-- <div class="maskList">
-          <center>Add new mask:</center>
-          <input type="text" name="" value="">
-        </div> -->
         <div class="nameHistory">
           <center>Name History:</center>
           <div>Randome Name 1</div>
@@ -151,7 +148,7 @@ export default {
   name: 'ostov-test',
   data(){
     return {
-      isMenuOpened: false
+      isMenuOpened: true
     }
   }
 }
@@ -181,6 +178,8 @@ export default {
   color: #B4ADA3;
   padding-top: 70px;
   padding-bottom: 10px;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 .choiceButtons {
   border-radius: 7px;
@@ -229,6 +228,7 @@ td:hover {
   display: grid;
   place-items: center;
   background-color: #3A2838;
+  user-select: none;
 }
 .closedMenu{
   display: grid;
@@ -246,11 +246,8 @@ td:hover {
 .closedMenu:before {
   display: grid;
   place-self: center;
-  content: "<";
-  color: #B4ADA3;
-}
-.closedMenu:hover:before {
   content: "<<<";
+  color: #B4ADA3;
 }
 .openedMenu {
   border: 1px solid #B4ADA3;
@@ -268,27 +265,37 @@ td:hover {
 .openedMenu:hover:before {
   content: ">>>";
 }
-.maskButtons{
-  /* border: 1px solid #B4ADA3; */
+.ambSearch {
+  border: none;
   border-radius: 10px;
-  padding: 10px;
-  /* width: 60px;
-  height: 30px; */
+  text-align: center;
+  font-size: 15px;
+  margin: 10px;
+  background-color: #B4ADA3;
+  color: #3B3A53;
+  height: 30px;
 }
-.settingsMenu {
+.ambAbcRu {
+  display: grid;
+  grid-auto-flow: column;
+  width: 300px;
+  overflow-x: auto;
+  user-select: none;
+}
+.ambAbcRu>* {
   display: grid;
   place-items: center;
+  height: 30px;
+  width: 30px;
+  border: 2px solid #3B3A53;
+  background-color: #B4ADA3;
+  color: #3B3A53;
+}
+.ambAbcRu>*:hover {
+  border: 2px solid #B4ADA3;
+  background-color: #3A2838;
   color: #B4ADA3;
-  padding: 5px;
-}
-.nameLength {
-  display: grid;
-  place-items: center;
-  border: 1px solid #B4ADA3;
-  border-radius: 10px;
-  padding: 10px;
-  /* width: 60px;
-  height: 30px; */
+  cursor: pointer;
 }
 .settingsMenu {
   display: grid;
@@ -297,49 +304,12 @@ td:hover {
   padding: 5px;
 }
 
-.nameLength {
-  display: grid;
-  place-items: center;
-  border: 1px solid #B4ADA3;
-  border-radius: 10px;
-  padding: 10px;
-  margin-top: 20px;
-  text-align: center;
-}
-.nameAtmosphere {
-  display: grid;
-  place-items: center;
-  border: 1px solid #B4ADA3;
-  border-radius: 10px;
-  padding: 10px;
-  margin-top: 20px;
-  text-align: center;
-}
-.userMask {
-  display: grid;
-  place-items: center;
-  border: 1px solid #B4ADA3;
-  border-radius: 10px;
-  padding: 10px;
-  margin-top: 20px;
-  text-align: center;
-}
-.maskList{
-  border: 1px solid #B4ADA3;
-  border-radius: 10px;
-  padding: 10px;
-}
-.maskList>* {
-  color: #B4ADA3;
-}
-.maskList>input {
-  margin-top: 10px;
-}
 .nameHistory{
   border: 1px solid #B4ADA3;
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
+  user-select: text;
 }
 .nameHistory>* {
   color: #B4ADA3;
