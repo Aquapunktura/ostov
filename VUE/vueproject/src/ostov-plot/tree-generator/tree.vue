@@ -17,6 +17,11 @@
         <div :key="id" @click="stepClick(item, id)" :class="(id===selectedStepId?'selected':'')+' '+item.type">
           {{ returnText(item.textId) }}
         </div>
+        <div
+        v-if="id !== chapter.steps.length-1"
+        class="h-line"
+        :key="'a_'+id"
+        />
       </template>
     </div>
 
@@ -140,7 +145,6 @@ h2 {
 .tree>*, .form_radio_btn label{
   padding: 10px;
   background-color: #d9d777;
-  margin: 10px;
   border-radius: 10px;
   cursor: pointer;
   text-transform: capitalize;
@@ -159,7 +163,6 @@ h2 {
   background-color: #ff7800 !important;
 }
 .choice {
-  margin: 20px  !important;
   padding: 30px  !important;
   clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
 }
@@ -179,5 +182,13 @@ h2 {
 	color: #666;
 }
 
+
+.h-line {
+  height: 25px;
+  width: 2px;
+  padding: 0;
+  cursor: auto;
+  background-color: black;
+}
 
 </style>

@@ -16,28 +16,42 @@
       </template>
     </select>
     <div class="buttons">
-      <button class="button delete" @click="del()">‐</button>
+      <button class="button delete" @click="isPopupDisplayed = true">‐</button>
       <button class="button add" @click="add()">+</button>
     </div>
-
+    <pop-up
+      :isOpen="isPopupDisplayed"
+      @ok="del()"
+      @close="isPopupDisplayed = false"
+    >
+      Вы уверены?
+    </pop-up>
   </div>
 </template>
 
 <script>
+import PopUp from '@/unifyComponents/popup.vue'
 export default {
   name: 'text-ui',
+
+  components: {
+    PopUp
+  },
   props: {
     options: Array,
     outputKey: String,
     label: String,
     default: [String, Number]
   },
+
   data() {
     return {
       id: '',
-      selected: null
+      selected: null,
+      isPopupDisplayed: false
     }
   },
+
   watch: {
     selected: function(v) {
       if (v !== null) {
@@ -48,10 +62,15 @@ export default {
       this.selected = v;
     }
   },
+
   methods: {
     add() {this.$emit('add')},
-    del() {this.$emit('delete')},
+    del() {
+      this.isPopupDisplayed = false;
+      this.$emit('delete')
+    },
   },
+
   created() {
     if (this.label) this.id = this.label;
     else this.id = 'lable'+Math.random()
