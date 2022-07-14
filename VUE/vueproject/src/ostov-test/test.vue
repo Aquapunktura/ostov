@@ -82,11 +82,49 @@
         class="closedMenu"
         @click="isMenuOpened = !isMenuOpened"
       >
-
       </div>
       <template v-if="isMenuOpened">
         <div class="maskButtons">
-          Close Menu
+          <div class="settingsMenu">
+            Настройки
+            <div class="nameLength">
+              Выберите длину
+              <br>
+              <select class="" name="">
+                <option value="">Short (1-4)</option>
+                <option value="">Medium (5-7)</option>
+                <option value="">Long (8+)</option>
+              </select>
+              <br>
+              или введите
+              <br>
+              точное количество букв
+              <br>
+              <input type="text" name="" value="">
+            </div>
+            <div class="nameAtmosphere">
+              Выберите
+              <br>
+              готовое окружение
+              <br>
+              <select class="" name="">
+                <option value="">Пустыня</option>
+                <option value="">Лес</option>
+                <option value="">Океан</option>
+              </select>
+              <br>
+              или создайте своё
+              <br>
+              <input type="text" name="" value="">
+            </div>
+            <div class="userMask">
+              Добавьте свой
+              <br>
+              шаблон имени
+              <br>
+              <input type="text" name="" value="">
+            </div>
+          </div>
         </div>
         <!-- <div class="maskList">
           <center>Add new mask:</center>
@@ -193,11 +231,25 @@ td:hover {
   background-color: #3A2838;
 }
 .closedMenu{
+  display: grid;
   border: 1px solid #B4ADA3;
   border-radius: 10px;
   width: 30px;
   height: 30px;
   place-self: start;
+  cursor: pointer;
+}
+.closedMenu:hover {
+  background-color: #2B2633;
+}
+.closedMenu:before {
+  display: grid;
+  place-self: center;
+  content: "<";
+  color: #B4ADA3;
+}
+.closedMenu:hover:before {
+  content: "<<<";
 }
 .openedMenu {
   border: 1px solid #B4ADA3;
@@ -205,19 +257,55 @@ td:hover {
   width: 100%;
   height: 30px;
   place-self: start;
-  background-color: green;
   display: grid;
   place-items: center;
-
+  user-select: none;
 }
 .openedMenu:before {
   content: "Close Menu";
 }
+.openedMenu:hover:before {
+  content: ">>>";
+}
 .maskButtons{
+  /* border: 1px solid #B4ADA3; */
+  border-radius: 10px;
+  padding: 10px;
+  /* width: 60px;
+  height: 30px; */
+}
+.settingsMenu {
+  display: grid;
+  place-items: center;
+  color: #B4ADA3;
+  padding: 5px;
+}
+.nameLength {
+  display: grid;
+  place-items: center;
   border: 1px solid #B4ADA3;
   border-radius: 10px;
-  width: 60px;
-  height: 30px;
+  padding: 10px;
+  margin-top: 20px;
+  text-align: center;
+}
+.nameAtmosphere {
+  display: grid;
+  place-items: center;
+  border: 1px solid #B4ADA3;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+  text-align: center;
+}
+.userMask {
+  display: grid;
+  place-items: center;
+  border: 1px solid #B4ADA3;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+  text-align: center;
 }
 .maskList{
   border: 1px solid #B4ADA3;
@@ -234,6 +322,7 @@ td:hover {
   border: 1px solid #B4ADA3;
   border-radius: 10px;
   padding: 10px;
+  margin: 10px;
 }
 .nameHistory>* {
   color: #B4ADA3;

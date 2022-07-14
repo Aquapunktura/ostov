@@ -90,7 +90,6 @@ html {
 }
 .wrapper>*:hover {
   color: white;
-  cursor: pointer;
   border-color: black;
   box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.4) inset;
 }
