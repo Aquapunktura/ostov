@@ -125,6 +125,26 @@
               <div>Ю</div>
               <div>Я</div>
             </div>
+            <div class="ambCreated">
+              <div>fantasy</div>
+              <div>far-far</div>
+              <div>field</div>
+              <div>fixed</div>
+              <div>focus</div>
+              <div>forest</div>
+              <div>fusion</div>
+              <div>formed</div>
+              <div>future</div>
+              <div>fantasy</div>
+              <div>far-far</div>
+              <div>field</div>
+              <div>fixed</div>
+              <div>focus</div>
+              <div>forest</div>
+              <div>fusion</div>
+              <div>formed</div>
+              <div>future</div>
+            </div>
           </div>
         </div>
         <div class="nameHistory">
@@ -190,9 +210,7 @@ export default {
   margin-top: 30px;
   gap: 50px;
 }
-.alphabetButtons {
 
-}
 table {
   border: 1px solid #B4ADA3;
   border-radius: 7px;
@@ -296,6 +314,19 @@ td:hover {
   background-color: #3A2838;
   color: #B4ADA3;
   cursor: pointer;
+}
+.ambCreated{
+  overflow-y: scroll;
+  height: 100px;
+  width: 300px;
+}
+.ambCreated>*{
+  float: left;
+  height: 30px;
+  width: 90px;
+  border: 2px solid #3B3A53;
+  background-color: #B4ADA3;
+  color: #3B3A53;
 }
 .settingsMenu {
   display: grid;
