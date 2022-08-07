@@ -126,7 +126,7 @@
               <div>Я</div>
             </div>
             <div class="ambCreated">
-              <div>fantasy</div>
+              <div>fantasyfantasyfantasy</div>
               <div>far-far</div>
               <div>field</div>
               <div>fixed</div>
@@ -144,6 +144,9 @@
               <div>fusion</div>
               <div>formed</div>
               <div>future</div>
+            </div>
+            <div>
+              <input type="text" size="40" class="ambCreateNew" placeholder="/create new/">
             </div>
           </div>
         </div>
@@ -319,14 +322,36 @@ td:hover {
   overflow-y: scroll;
   height: 100px;
   width: 300px;
+  margin-top: 12px;
 }
 .ambCreated>*{
+  display: grid;
   float: left;
   height: 30px;
   width: 90px;
   border: 2px solid #3B3A53;
   background-color: #B4ADA3;
   color: #3B3A53;
+  margin: 2px;
+  padding: 0px;
+  place-content: center;
+}
+.ambCreated>*:hover{
+  margin: 2px;
+  padding: 0px;
+  border: 2px solid #B4ADA3;
+  background-color: #3B3A53;
+  color: #B4ADA3;
+}
+.ambCreateNew{
+  border: none;
+  text-align: center;
+  font-size: 15px;
+  margin: 10px;
+  background-color: #B4ADA3;
+  color: #3B3A53;
+  height: 30px;
+  width: 150px;
 }
 .settingsMenu {
   display: grid;
