@@ -148,6 +148,23 @@
             <div>
               <input type="text" size="40" class="ambCreateNew" placeholder="/create new/">
             </div>
+            <div class="nameRangeTxt">
+              <div class="nLngthTxt">
+                Name length
+                <div class="nLngthTxtSmol">
+                  choose min and max values
+                </div>
+              </div>
+              <div class="nameRange">
+                <div class="nameRangeMin">
+                </div>
+                <input type="range" min="0" max="20" step="1" value="5" />
+                <div class="nameRangeMax">
+                </div>
+              <input type="range" min="0" max="20" step="1" value="15" />
+              </div>
+              
+            </div>
           </div>
         </div>
         <div class="nameHistory">
@@ -353,7 +370,24 @@ td:hover {
   height: 30px;
   width: 150px;
 }
-.settingsMenu {
+.nameRangeTxt{
+  margin-top: 10px;
+}
+.nLngthTxt{
+  text-align: center;
+  font-size: x-large;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.nLngthTxtSmol{
+  font-size: 20px;
+  font-style: italic;
+}
+.nameRange{
+  display: grid;
+  place-self: center;
+}
+.settingsMenu{
   display: grid;
   place-items: center;
   color: #B4ADA3;
